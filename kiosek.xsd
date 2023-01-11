@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    attributeFormDefault="qualified" targetNamespace="urn:vse.cz:vanj23:kiosek"
+    xmlns="urn:vse.cz:vanj23:kiosek" xmlns:kiosek="urn:vse.cz:vanj23:kiosek">
+
+    <xs:element name="kiosek" type="kiosekType">
+        <!-- Kategorie jídel musí být unikátní -->
+        <xs:key name="kategorie_jidel_key">
+            <xs:selector xpath="./kiosek:kategorieJidel/kiosek:kategorie"/>
+            <xs:field xpath="."/>
+        </xs:key>
+        <!-- Názvy jídel musí být unikátní -->
+        <xs:key name="polozky_key">
+            <xs:selector xpath="./kiosek:polozky/kiosek:polozka"/>
+            <xs:field xpath="kiosek:nazev"/>
+        </xs:key>
+        <!-- Položka může obsahovat pouze předepsanou kategorii jídel -->
+        <xs:keyref refer="kategorie_jidel_key" name="pouze_validni_kategorie_key">
+            <xs:selector xpath="./kiosek:polozky/kiosek:polozka"/>
+            <xs:field xpath="kiosek:kategorie"/>
+        </xs:keyref>
+        <!-- Existující úprava jídla musí být unikátní -->
+        <xs:key name="existujici_upravy_key">
+            <xs:selector xpath="./kiosek:existujiciUpravy/kiosek:uprava"/>
+            <xs:field xpath="kiosek:nazev"/>
+        </xs:key>
+        <!-- Jídlo může nabízet pouze existující úpravy jídel -->
+        <xs:keyref refer="existujici_upravy_key" name="pouze_existujici_upravy_key">
+            <xs:selector xpath="./kiosek:polozky/kiosek:polozka/kiosek:povoleneUpravy/kiosek:uprava"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+        <!-- Kupony musí mít unikátní název -->
+        <xs:key name="kupony_key">
+            <xs:selector xpath="./kiosek:kupony/kiosek:kupon"/>
+            <xs:field xpath="kiosek:nazev"/>
+        </xs:key>
+        <!-- Kupon může obsahovat pouze existující názvy jídel -->
+        <xs:keyref refer="polozky_key" name="pouze_existujici_jidla_v_kuponu_key">
+            <xs:selector xpath="./kiosek:kupony/kiosek:kupon/kiosek:obsah/kiosek:polozka"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+        <!-- Položka účtenky s typem kupon může obsahovat pouze validní názvy kuponů -->
+        <!-- PŘES SCHEMA NEJDE, UDELAME TO SCHEMATRONEM -->
+        <!--<xs:keyref refer="kupony_key" name="pouze_kupon_key">
+            <xs:selector xpath="./kiosek:uctenky/kiosek:uctenka/kiosek:polozkyUctenky/kiosek:polozkaUctenky[@kiosek:typ='Kupon']"/>
+            <xs:field xpath=""/>
+        </xs:keyref>
+        -->
+        <!-- Další schmatron check - cena se rovná součtu položek v objednávce -->
+    </xs:element>
+
+    <xs:complexType name="kiosekType">
+        <xs:sequence>
+            <xs:element name="kategorieJidel" type="kategorieJidelType"> </xs:element>
+            <xs:element name="existujiciUpravy" type="existujiciUpravyType"/>
+            <xs:element name="polozky" type="polozkyType"/>
+            
+            <xs:element name="kupony" type="kuponyType"/>
+            <xs:element name="uctenky" type="uctenkyType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Účtenky -->
+    <xs:complexType name="uctenkyType">
+        <xs:sequence>
+            <xs:element name="uctenka" type="uctenkaType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="uctenkaType">
+        <xs:sequence>
+            <xs:element name="id" type="idType"/>
+            <xs:element name="vystaveno" type="xs:dateTime"/>
+            <xs:element name="celkem" type="vetsiNezNula"/>
+            <xs:element name="polozkyUctenky" type="polozkyUctenkyType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Položky účtenky -->
+    <xs:complexType name="polozkyUctenkyType">
+        <xs:sequence>
+            <xs:element name="polozkaUctenky" type="polozkaUctenkyType" minOccurs="1"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="polozkaUctenkyType">
+        <xs:sequence>
+            <xs:element name="nazev" type="neprazdnyRetezec">
+                <!-- KEYREF!!! -->
+            </xs:element>
+            <xs:element name="cena" type="vetsiNezNula"/>
+            <xs:element name="pocet" type="vetsiNezNula"/>
+            <xs:element name="upravaPolozky" type="upravaNaUctenceType" minOccurs="0" maxOccurs="unbounded">
+                <!-- KEYREF -->
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="typ" type="typPolozkyVUctence" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="upravaNaUctenceType">
+        <xs:sequence>
+            <xs:element name="upravovanaPolozka" type="neprazdnyRetezec"/>
+            <xs:element name="uprava" type="neprazdnyRetezec" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="typPolozkyVUctence">
+        <xs:restriction base="neprazdnyRetezec">
+            <xs:enumeration value="Samostatná"/>
+            <xs:enumeration value="Kupon"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Kupony -->
+
+    <xs:complexType name="kuponyType">
+        <xs:sequence>
+            <xs:element name="kupon" minOccurs="0" maxOccurs="unbounded" type="kuponType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="kuponType">
+        <xs:sequence>
+            <xs:element name="nazev" type="neprazdnyRetezec"/>
+            <xs:element name="cena" type="vetsiNezNula"/>
+            <xs:element name="obsah" type="obsahKuponuType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="obsahKuponuType">
+        <xs:sequence>
+            <xs:element name="polozka" type="neprazdnyRetezec" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Položka -->
+    <xs:complexType name="polozkaType">
+        <xs:sequence>
+            <xs:element name="nazev" type="neprazdnyRetezec"/>
+            <xs:element name="cena" type="vetsiNezNula"/>
+            <xs:element name="kategorie" type="neprazdnyRetezec"/>
+            <xs:element name="povoleneUpravy" type="povoleneUpravyType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="obrazek" type="obrazekType"/>
+        </xs:sequence>
+        <xs:attribute name="typ" type="typJidlaType" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="povoleneUpravyType">
+        <xs:sequence>
+            <xs:element name="uprava" type="neprazdnyRetezec" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Typy jídla -->
+    <xs:simpleType name="typJidlaType">
+        <xs:restriction base="neprazdnyRetezec">
+            <xs:enumeration value="Hlavní jídlo"/>
+            <xs:enumeration value="Nápoj"/>
+            <xs:enumeration value="Příloha"/>
+            <xs:enumeration value="Finger food"/>
+            <xs:enumeration value="Desert"/>
+            <xs:enumeration value="Omáčka"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Položky -->
+    <xs:complexType name="polozkyType">
+        <xs:sequence>
+            <xs:element name="polozka" type="polozkaType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Kategorie jídel -->
+
+    <xs:complexType name="kategorieJidelType">
+        <xs:sequence>
+            <xs:element name="kategorie" type="neprazdnyRetezec" minOccurs="1" maxOccurs="unbounded"
+            />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Úpravy -->
+
+    <xs:complexType name="existujiciUpravyType">
+        <xs:sequence>
+            <xs:element name="uprava" type="existujiciUpravaType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="existujiciUpravaType">
+        <xs:sequence>
+            <xs:element name="nazev" type="neprazdnyRetezec"/>
+            <xs:element name="typ" type="typUpravyType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="typUpravyType">
+        <xs:restriction base="neprazdnyRetezec">
+            <xs:enumeration value="Volitelné"/>
+            <xs:enumeration value="Extra"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- BASIC TYPY -->
+    <xs:simpleType name="idType">
+        <xs:restriction base="neprazdnyRetezec">
+            <xs:pattern value="\d{3}-[A-Z]{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="obrazekType">
+        <xs:restriction base="xs:anyURI">
+            <!-- Mozna tu dodela regex nejakej? -->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="vetsiNezNula">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="neprazdnyRetezec">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

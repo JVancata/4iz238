@@ -1,0 +1,48 @@
+header {
+    background-color: #f6c02a;
+    color: white;
+    padding: 25px;
+    width: 100%;
+    text-align: center;
+}
+.category-card {
+    display: block;
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color: gray;
+    padding: 25px;
+    color: white;
+    margin-bottom: 25px;
+    text-align: center;
+
+    transition-property: background-color;
+    transition-duration: 250ms;
+    transition-timing-function: linear;
+}
+.category-card:hover {
+    background-color: #000;
+}
+.category-card h2 {
+    font-size: 21px;
+    display: block;
+    padding-top: 55px;
+    padding-bottom: 55px;
+    color: white;
+    text-decoration: none;
+}
+.category-card a {
+    text-decoration: none;
+}
+.item-card {
+    display: block;
+    height: 300px;
+    border: 1px solid black;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.item-card img {
+    width: 100%;
+}

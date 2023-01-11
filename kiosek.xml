@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="kiosek.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<kiosek:kiosek xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:vse.cz:vanj23:kiosek kiosek.xsd" xmlns="urn:vse.cz:vanj23:kiosek"
+    xmlns:kiosek="urn:vse.cz:vanj23:kiosek">
+    <!-- Kategorie jídel pro zobrazení v menu kiosku -->
+    <kiosek:kategorieJidel>
+        <kiosek:kategorie>Hovězí burgery</kiosek:kategorie>
+        <kiosek:kategorie>Wrapy</kiosek:kategorie>
+        <kiosek:kategorie>Studené nápoje</kiosek:kategorie>
+        <kiosek:kategorie>Horké nápoje</kiosek:kategorie>
+        <kiosek:kategorie>Hranolky</kiosek:kategorie>
+        <kiosek:kategorie>Salát</kiosek:kategorie>
+        <kiosek:kategorie>Desert</kiosek:kategorie>
+        <kiosek:kategorie>Finger food</kiosek:kategorie>
+        <kiosek:kategorie>Omáčka</kiosek:kategorie>
+    </kiosek:kategorieJidel>
+    <!-- Seznam všech možných úprav, které lze u jídel provést -->
+    <kiosek:existujiciUpravy>
+        <!-- Hlavní jídla -->
+        <kiosek:uprava>
+            <kiosek:nazev>Cibule čerstvá</kiosek:nazev>
+            <kiosek:typ>Volitelné</kiosek:typ>
+        </kiosek:uprava>
+        <kiosek:uprava>
+            <kiosek:nazev>Plátek masa navíc</kiosek:nazev>
+            <kiosek:typ>Extra</kiosek:typ>
+        </kiosek:uprava>
+        <kiosek:uprava>
+            <kiosek:nazev>Plátek slaniny navíc</kiosek:nazev>
+            <kiosek:typ>Extra</kiosek:typ>
+        </kiosek:uprava>
+        <kiosek:uprava>
+            <kiosek:nazev>Bezlepková houska</kiosek:nazev>
+            <kiosek:typ>Volitelné</kiosek:typ>
+        </kiosek:uprava>
+        <kiosek:uprava>
+            <kiosek:nazev>Rajče</kiosek:nazev>
+            <kiosek:typ>Volitelné</kiosek:typ>
+        </kiosek:uprava>
+        <!-- Deserty -->
+        <kiosek:uprava>
+            <kiosek:nazev>Karamelový toping</kiosek:nazev>
+            <kiosek:typ>Extra</kiosek:typ>
+        </kiosek:uprava>
+        <kiosek:uprava>
+            <kiosek:nazev>Čokoládový toping</kiosek:nazev>
+            <kiosek:typ>Extra</kiosek:typ>
+        </kiosek:uprava>
+        <kiosek:uprava>
+            <kiosek:nazev>Jahodový toping</kiosek:nazev>
+            <kiosek:typ>Extra</kiosek:typ>
+        </kiosek:uprava>
+    </kiosek:existujiciUpravy>
+    <!-- Jídla, které jsou v systému evidována a lze z nich skládat nabídka -->
+    <kiosek:polozky>
+        <kiosek:polozka kiosek:typ="Hlavní jídlo">
+            <kiosek:nazev>BigMac</kiosek:nazev>
+            <kiosek:cena>99</kiosek:cena>
+            <kiosek:kategorie>Hovězí burgery</kiosek:kategorie>
+            <kiosek:povoleneUpravy>
+                <kiosek:uprava>Cibule čerstvá</kiosek:uprava>
+                <kiosek:uprava>Plátek slaniny navíc</kiosek:uprava>
+                <kiosek:uprava>Bezlepková houska</kiosek:uprava>
+            </kiosek:povoleneUpravy>
+            <kiosek:obrazek>https://jakub.dev/bigmac.png</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Hlavní jídlo">
+            <kiosek:nazev>McRoyal</kiosek:nazev>
+            <kiosek:cena>99</kiosek:cena>
+            <kiosek:kategorie>Hovězí burgery</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/uploads/images/products/7-cz/c9619b204fb3adc0ee229c4e0b603942-medium_2x.webp</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Hlavní jídlo">
+            <kiosek:nazev>McWrap grilled</kiosek:nazev>
+            <kiosek:cena>99</kiosek:cena>
+            <kiosek:kategorie>Wrapy</kiosek:kategorie>
+            <kiosek:povoleneUpravy>
+                <kiosek:uprava>Rajče</kiosek:uprava>
+            </kiosek:povoleneUpravy>
+            <kiosek:obrazek>https://www.mcdonalds.cz/uploads/images/products/12-cz/534a9f8c549f37090520589dd95f1f13-medium_2x.webp</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Hlavní jídlo">
+            <kiosek:nazev>McWrap crispy</kiosek:nazev>
+            <kiosek:cena>99</kiosek:cena>
+            <kiosek:kategorie>Wrapy</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Nápoj">
+            <kiosek:nazev>Coca Cola 0.5 l</kiosek:nazev>
+            <kiosek:cena>39</kiosek:cena>
+            <kiosek:kategorie>Studené nápoje</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Nápoj">
+            <kiosek:nazev>Čaj Lipton 0.3 l - zelený </kiosek:nazev>
+            <kiosek:cena>39</kiosek:cena>
+            <kiosek:kategorie>Horké nápoje</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Příloha">
+            <kiosek:nazev>Velké hranolky</kiosek:nazev>
+            <kiosek:cena>49</kiosek:cena>
+            <kiosek:kategorie>Hranolky</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Příloha">
+            <kiosek:nazev>Zahradní salát</kiosek:nazev>
+            <kiosek:cena>49</kiosek:cena>
+            <kiosek:kategorie>Salát</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Finger food">
+            <kiosek:nazev>Smažené hermelíny - 3 Ks</kiosek:nazev>
+            <kiosek:cena>49</kiosek:cena>
+            <kiosek:kategorie>Finger food</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Desert">
+            <kiosek:nazev>Sezónní taštička</kiosek:nazev>
+            <kiosek:cena>49</kiosek:cena>
+            <kiosek:kategorie>Desert</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Desert">
+            <kiosek:nazev>McSundae - zmrzlina</kiosek:nazev>
+            <kiosek:cena>39</kiosek:cena>
+            <kiosek:kategorie>Desert</kiosek:kategorie>
+            <kiosek:povoleneUpravy>
+                <kiosek:uprava>Karamelový toping</kiosek:uprava>
+                <kiosek:uprava>Čokoládový toping</kiosek:uprava>
+                <kiosek:uprava>Jahodový toping</kiosek:uprava>
+            </kiosek:povoleneUpravy>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Omáčka">
+            <kiosek:nazev>Sladkokyselá omáčka</kiosek:nazev>
+            <kiosek:cena>9</kiosek:cena>
+            <kiosek:kategorie>Omáčka</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Omáčka">
+            <kiosek:nazev>Kari omáčka</kiosek:nazev>
+            <kiosek:cena>9</kiosek:cena>
+            <kiosek:kategorie>Omáčka</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+        <kiosek:polozka kiosek:typ="Omáčka">
+            <kiosek:nazev>Kečup</kiosek:nazev>
+            <kiosek:cena>9</kiosek:cena>
+            <kiosek:kategorie>Omáčka</kiosek:kategorie>
+            <kiosek:obrazek>https://www.mcdonalds.cz/assets/web/img/share.jpg</kiosek:obrazek>
+        </kiosek:polozka>
+    </kiosek:polozky>
+    <!-- Vyhodne nabidky z aplikace ktere obsahuji kombinaci nekolika polozek z nabidky nebo slevu na jeden produkt -->
+    <kiosek:kupony>
+        <kiosek:kupon>
+            <kiosek:nazev>BigMac menu s velkými hranolkami a Coca Colou</kiosek:nazev>
+            <kiosek:cena>125</kiosek:cena>
+            <kiosek:obsah>
+                <kiosek:polozka>BigMac</kiosek:polozka>
+                <kiosek:polozka>Velké hranolky</kiosek:polozka>
+                <kiosek:polozka>Coca Cola 0.5 l</kiosek:polozka>
+            </kiosek:obsah>
+        </kiosek:kupon>
+        <kiosek:kupon>
+            <kiosek:nazev>McSundae v super slevě!</kiosek:nazev>
+            <kiosek:cena>30</kiosek:cena>
+            <kiosek:obsah>
+                <kiosek:polozka>McSundae - zmrzlina</kiosek:polozka>
+            </kiosek:obsah>
+        </kiosek:kupon>
+    </kiosek:kupony>
+    <kiosek:uctenky>
+        <kiosek:uctenka>
+            <!-- Náhodné ID účtenky -->
+            <kiosek:id>232-ASC</kiosek:id>
+            <kiosek:vystaveno>2022-12-05T09:05:00</kiosek:vystaveno>
+            <kiosek:celkem>223</kiosek:celkem>
+            <kiosek:polozkyUctenky>
+                <!-- Samostatná položka z nabídky -->
+                <kiosek:polozkaUctenky kiosek:typ="Samostatná">
+                    <kiosek:nazev>Sezónní taštička</kiosek:nazev>
+                    <kiosek:cena>49</kiosek:cena>
+                    <kiosek:pocet>2</kiosek:pocet>
+                </kiosek:polozkaUctenky>
+                <!-- Obsahuje předem definované položky -->
+                <kiosek:polozkaUctenky kiosek:typ="Kupon">
+                    <kiosek:nazev>BigMac menu s velkými hranolkami a Coca Colou</kiosek:nazev>
+                    <kiosek:cena>125</kiosek:cena>
+                    <kiosek:pocet>1</kiosek:pocet>
+                </kiosek:polozkaUctenky>
+            </kiosek:polozkyUctenky>
+        </kiosek:uctenka>
+        <kiosek:uctenka>
+            <kiosek:id>843-PPG</kiosek:id>
+            <kiosek:vystaveno>2022-12-06T11:05:00</kiosek:vystaveno>
+            <kiosek:celkem>30</kiosek:celkem>
+            <kiosek:polozkyUctenky>
+                <kiosek:polozkaUctenky kiosek:typ="Kupon">
+                    <kiosek:nazev>McSundae v super slevě!</kiosek:nazev>
+                    <kiosek:cena>30</kiosek:cena>
+                    <kiosek:pocet>1</kiosek:pocet>
+                    <kiosek:upravaPolozky>
+                        <kiosek:upravovanaPolozka>McSundae - zmrzlina</kiosek:upravovanaPolozka>
+                        <kiosek:uprava>Karamelový toping</kiosek:uprava>
+                        <kiosek:uprava>Jahodový toping</kiosek:uprava>
+                    </kiosek:upravaPolozky>
+                </kiosek:polozkaUctenky>
+            </kiosek:polozkyUctenky>
+        </kiosek:uctenka>
+        <kiosek:uctenka>
+            <kiosek:id>813-PSG</kiosek:id>
+            <kiosek:vystaveno>2022-12-09T11:06:00</kiosek:vystaveno>
+            <kiosek:celkem>99</kiosek:celkem>
+            <kiosek:polozkyUctenky>
+                <kiosek:polozkaUctenky kiosek:typ="Samostatná">
+                    <kiosek:nazev>BigMac</kiosek:nazev>
+                    <kiosek:cena>99</kiosek:cena>
+                    <kiosek:pocet>1</kiosek:pocet>
+                    <kiosek:upravaPolozky>
+                        <kiosek:upravovanaPolozka>BigMac</kiosek:upravovanaPolozka>
+                        <kiosek:uprava>Cibule čerstvá</kiosek:uprava>
+                    </kiosek:upravaPolozky>
+                </kiosek:polozkaUctenky>
+            </kiosek:polozkyUctenky>
+        </kiosek:uctenka>
+    </kiosek:uctenky>
+</kiosek:kiosek>
